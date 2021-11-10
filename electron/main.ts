@@ -1,6 +1,7 @@
 import { exec, spawn } from 'child_process'
 import { app, Menu, Tray } from 'electron'
 import { menubar } from 'menubar'
+import './ipcMain'
 import ping from './cmd/ping'
 import path from 'path'
 
