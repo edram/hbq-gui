@@ -6,7 +6,6 @@ export const Container = styled.div`
   overflow: hidden;
   display: flex;
   flex-direction: column;
-  height: 100%;
   border: 1px solid #dcdcdc;
   box-shadow: 0 1px 2px -2px rgb(0 0 0 / 16%), 0 3px 6px 0 rgb(0 0 0 / 12%);
   user-select: none;
@@ -20,8 +19,7 @@ export const Title = styled.div`
 
 export const Body = styled.div`
   flex: 1;
-  /* max-height: 86px;
-  overflow-y: scroll; */
+  min-height: 86px;
 `
 
 export const Action = styled.div`

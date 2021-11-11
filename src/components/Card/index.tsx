@@ -1,5 +1,5 @@
 import { ReactNode, HtmlHTMLAttributes, useEffect, useState } from 'react'
-
+import { useMeasure } from 'react-use'
 import { Action, Body, Container, Title } from './styles'
 
 type CardProps = {
@@ -11,6 +11,14 @@ export function Card(props: CardProps) {
   const [pingIsRunning, setPingIsRunning] = useState<boolean>(
     window.Main.isPingRunning
   )
+  const [ref, { height }] = useMeasure<HTMLDivElement>()
+
+  useEffect(() => {
+    window.Main.changeTrayWindowSize(height)
+    console.log(1, height)
+  }, [height])
+
+  console.log(height)
 
   const handleBtnClick = () => {
     if (pingIsRunning) {
@@ -21,7 +29,7 @@ export function Card(props: CardProps) {
   }
 
   const changeTrayWindowSize = () => {
-    window.Main.changeTrayWindowSize(600)
+    window.Main.changeTrayWindowSize(100)
   }
 
   useEffect(() => {
@@ -48,8 +56,10 @@ export function Card(props: CardProps) {
     }
   }, [ids])
 
+  console.log(ref)
+
   return (
-    <Container {...props}>
+    <Container {...props} ref={ref}>
       <Title>新消息</Title>
       <Body>
         {ids.map((id, index) => (

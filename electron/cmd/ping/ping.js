@@ -8,7 +8,7 @@ const sleep = ms => {
 let count = 0
 
 const main = () => {
-  return sleep(5000).then(() => {
+  return sleep(100).then(() => {
     console.log(count)
     count++
     return main()

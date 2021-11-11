@@ -67,13 +67,13 @@ function createWindow() {
       skipTaskbar: true,
       resizable: false,
       width: 250,
-      height: 150,
+      height: 550,
       alwaysOnTop: true,
       webPreferences: {
         preload: MAIN_WINDOW_PRELOAD_WEBPACK_ENTRY,
       },
     },
-    preloadWindow: true,
+    // preloadWindow: true,
   })
   bootIpcMain(mb)
 
