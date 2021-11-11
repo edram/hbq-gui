@@ -4,17 +4,13 @@ import { menubar } from 'menubar'
 import bootIpcMain from './ipcMain'
 import ping from './cmd/ping'
 import path from 'path'
+import helper from './helper'
 
 declare const MAIN_WINDOW_WEBPACK_ENTRY: string
 declare const MAIN_WINDOW_PRELOAD_WEBPACK_ENTRY: string
 
-const assetsPath =
-  process.env.NODE_ENV === 'production'
-    ? process.resourcesPath
-    : app.getAppPath()
-
 function createWindow() {
-  const tray = new Tray(path.join(assetsPath, 'assets', 'IconTemplate.png'))
+  const tray = new Tray(path.join(helper.assetsPath, 'assets', 'icon.png'))
   const contextMenu = Menu.buildFromTemplate([
     {
       label: 'ping',
@@ -83,6 +79,12 @@ function createWindow() {
 }
 
 app
-  .on('ready', createWindow)
+  .on('ready', () => {
+    createWindow()
+
+    if (process.platform === 'win32') {
+      app.setAppUserModelId('胡彬清助理')
+    }
+  })
   .whenReady()
   .catch(e => console.error(e))

@@ -2,6 +2,9 @@ import { clipboard, ipcMain, Notification } from 'electron'
 import { Menubar } from 'menubar'
 import bootMenubar from './menubar'
 import ping from '../cmd/ping'
+import { NotificationConstructorOptions } from 'electron/main'
+import helper from '../helper'
+import path from 'path'
 
 const bootstrap = (mb: Menubar) => {
   ipcMain.on('ping-start', event => {
@@ -33,9 +36,13 @@ const bootstrap = (mb: Menubar) => {
     event.returnValue = true
   })
 
-  ipcMain.on('notification-send', (event, data) => {
-    new Notification(data).show()
-  })
+  ipcMain.on(
+    'notification-send',
+    (event, data: NotificationConstructorOptions) => {
+      data.icon = path.join(helper.assetsPath, 'assets', 'icon.png')
+      new Notification(data).show()
+    }
+  )
 
   bootMenubar(mb)
 }
