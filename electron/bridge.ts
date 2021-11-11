@@ -1,4 +1,5 @@
 import { contextBridge, ipcRenderer } from 'electron'
+import { NotificationConstructorOptions } from 'electron/main'
 
 export const api = {
   /**
@@ -33,6 +34,14 @@ export const api = {
    */
   changeTrayWindowSize: (height: number) => {
     ipcRenderer.sendSync('tray-window-size', height)
+  },
+
+  setClipboard: (text: string) => {
+    ipcRenderer.sendSync('clipboard-writeText', text)
+  },
+
+  notify: (data: NotificationConstructorOptions) => {
+    ipcRenderer.send('notification-send', data)
   },
 }
 

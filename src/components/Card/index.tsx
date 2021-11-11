@@ -34,10 +34,6 @@ export function Card(props: CardProps) {
     }
   }
 
-  const changeTrayWindowSize = () => {
-    window.Main.changeTrayWindowSize(100)
-  }
-
   useEffect(() => {
     window.Main.on('ping-runing-change', (isRuning: boolean) => {
       setPingIsRunning(isRuning)
@@ -65,7 +61,15 @@ export function Card(props: CardProps) {
         {ids.map((id, index) => (
           <div className="id" key={index}>
             <span>{id}</span>
-            <Icon />
+            <Icon
+              onClick={() => {
+                window.Main.setClipboard(id)
+                window.Main.notify({
+                  title: '复制成功',
+                  body: '修改文件就好噢，不需要重新启动命令',
+                })
+              }}
+            />
           </div>
         ))}
       </Body>
@@ -73,7 +77,6 @@ export function Card(props: CardProps) {
         <span onClick={handleBtnClick}>
           {pingIsRunning ? '停止小眼睛' : '启动小眼睛'}
         </span>
-        <span onClick={changeTrayWindowSize}>测试</span>
       </Action>
     </Container>
   )

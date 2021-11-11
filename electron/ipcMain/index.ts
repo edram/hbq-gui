@@ -1,4 +1,4 @@
-import { ipcMain } from 'electron'
+import { clipboard, ipcMain, Notification } from 'electron'
 import { Menubar } from 'menubar'
 import bootMenubar from './menubar'
 import ping from '../cmd/ping'
@@ -26,6 +26,15 @@ const bootstrap = (mb: Menubar) => {
 
   ipcMain.on('ping-isRunning', event => {
     event.returnValue = ping.isRuning
+  })
+
+  ipcMain.on('clipboard-writeText', (event, text: string) => {
+    clipboard.writeText(text)
+    event.returnValue = true
+  })
+
+  ipcMain.on('notification-send', (event, data) => {
+    new Notification(data).show()
   })
 
   bootMenubar(mb)
