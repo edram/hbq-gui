@@ -2,10 +2,16 @@ import { ReactNode, HtmlHTMLAttributes, useEffect, useState } from 'react'
 import { useMeasure } from 'react-use'
 import { Action, Body, Container, Title } from './styles'
 import CopySvg from '../Icons/Copy'
+import styled from 'styled-components'
 
 type CardProps = {
   children?: ReactNode
 } & HtmlHTMLAttributes<HTMLDivElement>
+
+const Icon = styled(CopySvg)`
+  color: #000;
+  cursor: pointer;
+`
 
 export function Card(props: CardProps) {
   const [ids, setIds] = useState<string[]>(['1', '2', '3'])
@@ -59,7 +65,7 @@ export function Card(props: CardProps) {
         {ids.map((id, index) => (
           <div className="id" key={index}>
             <span>{id}</span>
-            <CopySvg style={{ fontSize: 12, color: '#fff' }} />
+            <Icon />
           </div>
         ))}
       </Body>

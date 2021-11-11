@@ -26,7 +26,7 @@ export const Body = styled.div`
     align-items: center;
     justify-content: space-between;
     &:not(:last-child) {
-      border-bottom: 1px solid #000;
+      border-bottom: 1px solid #dcdcdc;
     }
     padding: 5px;
   }
