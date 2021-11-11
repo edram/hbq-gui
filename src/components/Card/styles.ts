@@ -19,7 +19,8 @@ export const Title = styled.div`
 
 export const Body = styled.div`
   flex: 1;
-  min-height: 86px;
+  min-height: 60px;
+  font-size: 13px;
 
   .id {
     display: flex;
@@ -42,7 +43,7 @@ export const Action = styled.div`
   font-weight: 400;
   span {
     color: #23a323;
-    margin: 0 10px;
+    margin: 0 5px;
     cursor: pointer;
   }
 `

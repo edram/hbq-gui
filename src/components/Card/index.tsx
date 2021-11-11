@@ -50,7 +50,12 @@ export function Card(props: CardProps) {
       if (regex.test(data)) {
         console.log(12312)
         const matches = data.match(regex)
-        setIds([...ids, matches![1]])
+        if (ids.length > 5) {
+          const [, ...restIds] = ids
+          setIds([...restIds, matches![1]])
+        } else {
+          setIds([...ids, matches![1]])
+        }
       }
     })
 
@@ -61,7 +66,7 @@ export function Card(props: CardProps) {
 
   return (
     <Container {...props} ref={ref}>
-      <Title>新消息</Title>
+      <Title>新消息{!!ids.length && `（${ids.length}）`}</Title>
       <Body>
         {ids.map((id, index) => (
           <div className="id" key={index}>
@@ -70,8 +75,8 @@ export function Card(props: CardProps) {
               onClick={() => {
                 window.Main.setClipboard(id)
                 window.Main.notify({
-                  title: '复制成功',
-                  body: '修改文件就好噢，不需要重新启动命令',
+                  title: '小红书ID复制成功',
+                  body: '点击配置修改即可，不需要重新启动命令',
                 })
               }}
             />
@@ -82,6 +87,12 @@ export function Card(props: CardProps) {
         <span onClick={handleBtnClick}>
           {pingIsRunning ? '停止小眼睛' : '启动小眼睛'}
         </span>
+
+        <span onClick={handleBtnClick}>
+          {pingIsRunning ? '停止收录' : '启动收录'}
+        </span>
+
+        <span onClick={handleBtnClick}>配置</span>
 
         <span
           onClick={() => {
