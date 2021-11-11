@@ -14,19 +14,19 @@ export const api = {
   },
 
   /**
-   * 启动 ping 命令
+   * 启动 小眼睛 命令
    * @returns boolean
    */
-  startPing: (): boolean => {
-    return ipcRenderer.sendSync('ping-start')
+  startXyj: (): boolean => {
+    return ipcRenderer.sendSync('xyj-start')
   },
 
-  killPing: (): boolean => {
-    return ipcRenderer.sendSync('ping-kill')
+  killXyj: (): boolean => {
+    return ipcRenderer.sendSync('xyj-kill')
   },
 
-  isPingRunning: (): boolean => {
-    return ipcRenderer.sendSync('ping-isRunning')
+  isXyjRunning: (): boolean => {
+    return ipcRenderer.sendSync('xyj-isRunning')
   },
 
   /**

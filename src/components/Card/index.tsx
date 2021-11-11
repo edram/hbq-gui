@@ -15,8 +15,8 @@ const Icon = styled(CopySvg)`
 
 export function Card(props: CardProps) {
   const [ids, setIds] = useState<string[]>([])
-  const [pingIsRunning, setPingIsRunning] = useState<boolean>(
-    window.Main.isPingRunning
+  const [xyjIsRunning, setXyjIsRunning] = useState<boolean>(
+    window.Main.isXyjRunning
   )
   const [ref, { height }] = useMeasure<HTMLDivElement>()
 
@@ -27,28 +27,27 @@ export function Card(props: CardProps) {
   console.log(height)
 
   const handleBtnClick = () => {
-    if (pingIsRunning) {
-      window.Main.killPing()
+    if (xyjIsRunning) {
+      window.Main.killXyj()
     } else {
-      window.Main.startPing()
+      window.Main.startXyj()
     }
   }
 
   useEffect(() => {
-    window.Main.on('ping-runing-change', (isRuning: boolean) => {
-      setPingIsRunning(isRuning)
+    window.Main.on('xyj-runing-change', (isRuning: boolean) => {
+      setXyjIsRunning(isRuning)
     })
 
     return () => {
-      window.Main.removeAllListeners('ping-runing-change')
+      window.Main.removeAllListeners('xyj-runing-change')
     }
-  }, [pingIsRunning])
+  }, [xyjIsRunning])
 
   useEffect(() => {
     const regex = /小红书ID：(.*)/
-    window.Main.on('ping-data', (data: string) => {
+    window.Main.on('xyj-data', (data: string) => {
       if (regex.test(data)) {
-        console.log(12312)
         const matches = data.match(regex)
         if (ids.length > 5) {
           const [, ...restIds] = ids
@@ -60,7 +59,7 @@ export function Card(props: CardProps) {
     })
 
     return () => {
-      window.Main.removeAllListeners('ping-data')
+      window.Main.removeAllListeners('xyj-data')
     }
   }, [ids])
 
@@ -85,7 +84,7 @@ export function Card(props: CardProps) {
       </Body>
       <Action>
         <span onClick={handleBtnClick}>
-          {pingIsRunning ? '停止小眼睛' : '启动小眼睛'}
+          {xyjIsRunning ? '停止小眼睛' : '启动小眼睛'}
         </span>
 
         <span>启动收录</span>

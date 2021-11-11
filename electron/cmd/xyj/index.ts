@@ -4,7 +4,7 @@ import path from 'path'
 
 type CmdProcess = ChildProcessWithoutNullStreams | null
 
-let pingCmd: CmdProcess = null
+let xyjCmd: CmdProcess = null
 
 interface Cmd {
   start(): ChildProcessWithoutNullStreams
@@ -15,33 +15,33 @@ interface Cmd {
 
 const cmd: Cmd = {
   start() {
-    if (pingCmd != null) {
-      return pingCmd
+    if (xyjCmd != null) {
+      return xyjCmd
     }
     console.log(app.getAppPath())
-    pingCmd = spawn('node', [
-      path.join(app.getAppPath(), './electron/cmd/ping', 'ping.js'),
+    xyjCmd = spawn('node', [
+      path.join(app.getAppPath(), './electron/cmd/xyj', 'ping.js'),
     ])
-    pingCmd.stdout.setEncoding('utf8')
-    pingCmd.on('exit', () => {
-      console.log('ping cmd exited')
-      pingCmd = null
+    xyjCmd.stdout.setEncoding('utf8')
+    xyjCmd.on('exit', () => {
+      console.log('xyj cmd exited')
+      xyjCmd = null
     })
 
-    console.log(pingCmd.pid)
-    return pingCmd
+    console.log(xyjCmd.pid)
+    return xyjCmd
   },
   kill() {
-    pingCmd?.kill()
-    pingCmd = null
+    xyjCmd?.kill()
+    xyjCmd = null
 
-    console.log('ping cmd killed!')
+    console.log('xyj cmd killed!')
   },
   get process() {
-    return pingCmd
+    return xyjCmd
   },
   get isRuning() {
-    return !!pingCmd
+    return !!xyjCmd
   },
 }
 

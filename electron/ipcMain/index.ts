@@ -1,34 +1,34 @@
 import { clipboard, ipcMain, Notification } from 'electron'
 import { Menubar } from 'menubar'
 import bootMenubar from './menubar'
-import ping from '../cmd/ping'
+import xyjCmd from '../cmd/xyj'
 import { NotificationConstructorOptions } from 'electron/main'
 import helper from '../helper'
 import path from 'path'
 
 const bootstrap = (mb: Menubar) => {
-  ipcMain.on('ping-start', event => {
-    const pingProcess = ping.start()
+  ipcMain.on('xyj-start', event => {
+    const pingProcess = xyjCmd.start()
     event.returnValue = true
 
-    event.reply('ping-runing-change', true)
+    event.reply('xyj-runing-change', true)
 
     pingProcess.on('exit', () => {
-      event.reply('ping-runing-change', false)
+      event.reply('xyj-runing-change', false)
     })
 
     pingProcess.stdout.on('data', data => {
-      event.reply('ping-data', data)
+      event.reply('xyj-data', data)
     })
   })
 
-  ipcMain.on('ping-kill', event => {
-    ping.kill()
+  ipcMain.on('xyj-kill', event => {
+    xyjCmd.kill()
     event.returnValue = true
   })
 
-  ipcMain.on('ping-isRunning', event => {
-    event.returnValue = ping.isRuning
+  ipcMain.on('xyj-isRunning', event => {
+    event.returnValue = xyjCmd.isRuning
   })
 
   ipcMain.on('clipboard-writeText', (event, text: string) => {
