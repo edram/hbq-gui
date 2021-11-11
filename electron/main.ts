@@ -52,12 +52,12 @@ function createWindow() {
       },
     },
   ])
-  tray.setToolTip('给我老婆写的脚本')
   tray.setContextMenu(contextMenu)
 
   const mb = menubar({
     tray,
     index: MAIN_WINDOW_WEBPACK_ENTRY,
+    tooltip:'❤️ 给我老婆写的脚本 ❤️',
     browserWindow: {
       transparent: true,
       skipTaskbar: true,

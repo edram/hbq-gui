@@ -88,11 +88,9 @@ export function Card(props: CardProps) {
           {pingIsRunning ? '停止小眼睛' : '启动小眼睛'}
         </span>
 
-        <span onClick={handleBtnClick}>
-          {pingIsRunning ? '停止收录' : '启动收录'}
-        </span>
+        <span>启动收录</span>
 
-        <span onClick={handleBtnClick}>配置</span>
+        <span>配置</span>
 
         <span
           onClick={() => {

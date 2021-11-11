@@ -9,7 +9,7 @@ let count = 0
 
 const main = () => {
   return sleep(1000).then(() => {
-    console.log(Math.random() > 0.78 ? `小红书ID： ${count}` : count)
+    console.log(Math.random() > 0.3 ? `小红书ID： ${count}` : count)
     count++
     return main()
   })
