@@ -20,6 +20,16 @@ export const Title = styled.div`
 export const Body = styled.div`
   flex: 1;
   min-height: 86px;
+
+  .id {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    &:not(:last-child) {
+      border-bottom: 1px solid #000;
+    }
+    padding: 5px;
+  }
 `
 
 export const Action = styled.div`

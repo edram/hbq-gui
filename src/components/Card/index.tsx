@@ -1,13 +1,14 @@
 import { ReactNode, HtmlHTMLAttributes, useEffect, useState } from 'react'
 import { useMeasure } from 'react-use'
 import { Action, Body, Container, Title } from './styles'
+import CopySvg from '../Icons/Copy'
 
 type CardProps = {
   children?: ReactNode
 } & HtmlHTMLAttributes<HTMLDivElement>
 
 export function Card(props: CardProps) {
-  const [ids, setIds] = useState<string[]>([])
+  const [ids, setIds] = useState<string[]>(['1', '2', '3'])
   const [pingIsRunning, setPingIsRunning] = useState<boolean>(
     window.Main.isPingRunning
   )
@@ -15,7 +16,6 @@ export function Card(props: CardProps) {
 
   useEffect(() => {
     window.Main.changeTrayWindowSize(height)
-    console.log(1, height)
   }, [height])
 
   console.log(height)
@@ -31,10 +31,6 @@ export function Card(props: CardProps) {
   const changeTrayWindowSize = () => {
     window.Main.changeTrayWindowSize(100)
   }
-
-  useEffect(() => {
-    setIds([])
-  }, [pingIsRunning])
 
   useEffect(() => {
     window.Main.on('ping-runing-change', (isRuning: boolean) => {
@@ -56,14 +52,15 @@ export function Card(props: CardProps) {
     }
   }, [ids])
 
-  console.log(ref)
-
   return (
     <Container {...props} ref={ref}>
       <Title>新消息</Title>
       <Body>
         {ids.map((id, index) => (
-          <div key={index}>{id}</div>
+          <div className="id" key={index}>
+            <span>{id}</span>
+            <CopySvg style={{ fontSize: 12, color: '#fff' }} />
+          </div>
         ))}
       </Body>
       <Action>
