@@ -20,6 +20,8 @@ export const Title = styled.div`
 
 export const Body = styled.div`
   flex: 1;
+  /* max-height: 86px;
+  overflow-y: scroll; */
 `
 
 export const Action = styled.div`

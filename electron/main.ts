@@ -1,7 +1,7 @@
 import { exec, spawn } from 'child_process'
 import { app, Menu, Tray } from 'electron'
 import { menubar } from 'menubar'
-import './ipcMain'
+import bootIpcMain from './ipcMain'
 import ping from './cmd/ping'
 import path from 'path'
 
@@ -75,10 +75,10 @@ function createWindow() {
     },
     preloadWindow: true,
   })
+  bootIpcMain(mb)
 
   mb.on('ready', () => {
     console.log('Menubar app is ready.')
-    // your app code here
   })
 }
 

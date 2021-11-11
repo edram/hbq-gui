@@ -8,6 +8,10 @@ export const api = {
     ipcRenderer.on(channel, (_, data) => callback(data))
   },
 
+  removeAllListeners: (channel: string) => {
+    ipcRenderer.removeAllListeners(channel)
+  },
+
   /**
    * 启动 ping 命令
    * @returns boolean
@@ -22,6 +26,13 @@ export const api = {
 
   isPingRunning: (): boolean => {
     return ipcRenderer.sendSync('ping-isRunning')
+  },
+
+  /**
+   * tray window
+   */
+  changeTrayWindowSize: (height: number) => {
+    ipcRenderer.sendSync('tray-window-size', height)
   },
 }
 
