@@ -8,8 +8,8 @@ const sleep = ms => {
 let count = 0
 
 const main = () => {
-  return sleep(100).then(() => {
-    console.log(count)
+  return sleep(1000).then(() => {
+    console.log(Math.random() > 0.9 ? `小红书ID： ${count}` : count)
     count++
     return main()
   })

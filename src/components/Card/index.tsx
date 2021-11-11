@@ -14,7 +14,7 @@ const Icon = styled(CopySvg)`
 `
 
 export function Card(props: CardProps) {
-  const [ids, setIds] = useState<string[]>(['1', '2', '3'])
+  const [ids, setIds] = useState<string[]>([])
   const [pingIsRunning, setPingIsRunning] = useState<boolean>(
     window.Main.isPingRunning
   )
@@ -45,8 +45,13 @@ export function Card(props: CardProps) {
   }, [pingIsRunning])
 
   useEffect(() => {
+    const regex = /小红书ID：(.*)/
     window.Main.on('ping-data', (data: string) => {
-      setIds([...ids, data])
+      if (regex.test(data)) {
+        console.log(12312)
+        const matches = data.match(regex)
+        setIds([...ids, matches![1]])
+      }
     })
 
     return () => {
@@ -60,7 +65,7 @@ export function Card(props: CardProps) {
       <Body>
         {ids.map((id, index) => (
           <div className="id" key={index}>
-            <span>{id}</span>
+            <span>小红书ID: {id}</span>
             <Icon
               onClick={() => {
                 window.Main.setClipboard(id)
@@ -76,6 +81,14 @@ export function Card(props: CardProps) {
       <Action>
         <span onClick={handleBtnClick}>
           {pingIsRunning ? '停止小眼睛' : '启动小眼睛'}
+        </span>
+
+        <span
+          onClick={() => {
+            setIds([])
+          }}
+        >
+          忽略全部
         </span>
       </Action>
     </Container>
