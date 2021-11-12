@@ -18,6 +18,9 @@ export function Card(props: CardProps) {
   const [xyjIsRunning, setXyjIsRunning] = useState<boolean>(
     window.Main.isXyjRunning
   )
+  const [slIsRunning, setSlIsRunning] = useState<boolean>(
+    window.Main.isSlRunning
+  )
   const [ref, { height }] = useMeasure<HTMLDivElement>()
 
   useEffect(() => {
@@ -26,7 +29,7 @@ export function Card(props: CardProps) {
 
   console.log(height)
 
-  const handleBtnClick = () => {
+  const handleXyjBtnClick = () => {
     if (xyjIsRunning) {
       window.Main.killXyj()
     } else {
@@ -34,19 +37,31 @@ export function Card(props: CardProps) {
     }
   }
 
+  const handleSlBtnClick = () => {
+    if (slIsRunning) {
+      window.Main.killSl()
+    } else {
+      window.Main.startSl()
+    }
+  }
+
   useEffect(() => {
     window.Main.on('xyj-runing-change', (isRuning: boolean) => {
       setXyjIsRunning(isRuning)
     })
+    window.Main.on('sl-runing-change', (isRuning: boolean) => {
+      setSlIsRunning(isRuning)
+    })
 
     return () => {
       window.Main.removeAllListeners('xyj-runing-change')
+      window.Main.removeAllListeners('sl-runing-change')
     }
   }, [xyjIsRunning])
 
   useEffect(() => {
     const regex = /小红书 ID： (.*)/
-    window.Main.on('xyj-data', (data: string) => {
+    const handleStdout = (data: string) => {
       console.log(data)
       if (regex.test(data)) {
         const matches = data.match(regex)
@@ -57,10 +72,13 @@ export function Card(props: CardProps) {
           setIds([...ids, matches![1]])
         }
       }
-    })
+    }
+    window.Main.on('xyj-data', handleStdout)
+    window.Main.on('sl-data', handleStdout)
 
     return () => {
       window.Main.removeAllListeners('xyj-data')
+      window.Main.removeAllListeners('sl-data')
     }
   }, [ids])
 
@@ -84,11 +102,13 @@ export function Card(props: CardProps) {
         ))}
       </Body>
       <Action>
-        <span onClick={handleBtnClick}>
+        <span onClick={handleXyjBtnClick}>
           {xyjIsRunning ? '停止小眼睛' : '启动小眼睛'}
         </span>
 
-        <span>启动收录</span>
+        <span onClick={handleSlBtnClick}>
+          {slIsRunning ? '停止收录' : '启动收录'}
+        </span>
 
         <span onClick={()=>{
           window.Main.exec('code /Users/edram/xhs/data')

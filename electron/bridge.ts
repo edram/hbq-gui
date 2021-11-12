@@ -30,6 +30,22 @@ export const api = {
   },
 
   /**
+   * 启动 收录 命令
+   * @returns boolean
+   */
+  startSl: (): boolean => {
+    return ipcRenderer.sendSync('sl-start')
+  },
+
+  killSl: (): boolean => {
+    return ipcRenderer.sendSync('sl-kill')
+  },
+
+  isSlRunning: (): boolean => {
+    return ipcRenderer.sendSync('sl-isRunning')
+  },
+
+  /**
    * tray window
    */
   changeTrayWindowSize: (height: number) => {

@@ -2,6 +2,7 @@ import { clipboard, ipcMain, Notification } from 'electron'
 import { Menubar } from 'menubar'
 import bootMenubar from './menubar'
 import xyjCmd from '../cmd/xyj'
+import slCmd from '../cmd/sl'
 import { NotificationConstructorOptions } from 'electron/main'
 import helper from '../helper'
 import path from 'path'
@@ -30,6 +31,31 @@ const bootstrap = (mb: Menubar) => {
 
   ipcMain.on('xyj-isRunning', event => {
     event.returnValue = xyjCmd.isRuning
+  })
+
+  ipcMain.on('sl-start', event => {
+    const pingProcess = slCmd.start()
+    event.returnValue = true
+
+    event.reply('sl-runing-change', true)
+
+    pingProcess.on('exit', () => {
+      event.reply('sl-runing-change', false)
+    })
+
+    pingProcess.stdout.on('data', data => {
+      console.log(data)
+      event.reply('sl-data', data)
+    })
+  })
+
+  ipcMain.on('sl-kill', event => {
+    slCmd.kill()
+    event.returnValue = true
+  })
+
+  ipcMain.on('sl-isRunning', event => {
+    event.returnValue = slCmd.isRuning
   })
 
   ipcMain.on('clipboard-writeText', (event, text: string) => {
