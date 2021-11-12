@@ -45,8 +45,9 @@ export function Card(props: CardProps) {
   }, [xyjIsRunning])
 
   useEffect(() => {
-    const regex = /小红书ID：(.*)/
+    const regex = /小红书 ID： (.*)/
     window.Main.on('xyj-data', (data: string) => {
+      console.log(data)
       if (regex.test(data)) {
         const matches = data.match(regex)
         if (ids.length > 5) {

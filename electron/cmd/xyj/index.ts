@@ -1,6 +1,5 @@
 import { ChildProcessWithoutNullStreams, spawn } from 'child_process'
 import { app } from 'electron'
-import path from 'path'
 
 type CmdProcess = ChildProcessWithoutNullStreams | null
 
@@ -19,9 +18,7 @@ const cmd: Cmd = {
       return xyjCmd
     }
     console.log(app.getAppPath())
-    xyjCmd = spawn('node', [
-      path.join(app.getAppPath(), './electron/cmd/xyj', 'ping.js'),
-    ])
+    xyjCmd = spawn('mitmweb', ["-s /Users/edram/xhs/xyj.py", "--no-web-open-browser"])
     xyjCmd.stdout.setEncoding('utf8')
     xyjCmd.on('exit', () => {
       console.log('xyj cmd exited')

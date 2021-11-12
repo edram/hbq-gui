@@ -22,12 +22,13 @@ function createWindow() {
         preload: MAIN_WINDOW_PRELOAD_WEBPACK_ENTRY,
       },
     },
-    // preloadWindow: true,
+    preloadWindow: true,
   })
   bootIpcMain(mb)
 
   mb.on('ready', () => {
     console.log('Menubar app is ready.')
+    mb.window?.webContents.openDevTools()
   })
 }
 

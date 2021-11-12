@@ -18,6 +18,7 @@ const bootstrap = (mb: Menubar) => {
     })
 
     pingProcess.stdout.on('data', data => {
+      console.log(11, data)
       event.reply('xyj-data', data)
     })
   })
