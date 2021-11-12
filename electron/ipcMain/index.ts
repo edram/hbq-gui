@@ -5,6 +5,7 @@ import xyjCmd from '../cmd/xyj'
 import { NotificationConstructorOptions } from 'electron/main'
 import helper from '../helper'
 import path from 'path'
+import { exec } from 'child_process'
 
 const bootstrap = (mb: Menubar) => {
   ipcMain.on('xyj-start', event => {
@@ -43,6 +44,10 @@ const bootstrap = (mb: Menubar) => {
       new Notification(data).show()
     }
   )
+
+  ipcMain.on('exec-cmd', (event, cmd) => {
+    exec(cmd)
+  })
 
   bootMenubar(mb)
 }

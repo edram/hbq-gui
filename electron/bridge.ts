@@ -43,6 +43,10 @@ export const api = {
   notify: (data: NotificationConstructorOptions) => {
     ipcRenderer.send('notification-send', data)
   },
+
+  exec: (cmd: string) => {
+    ipcRenderer.send('exec-cmd', cmd)
+  },
 }
 
 contextBridge.exposeInMainWorld('Main', api)

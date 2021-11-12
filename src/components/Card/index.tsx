@@ -90,7 +90,9 @@ export function Card(props: CardProps) {
 
         <span>启动收录</span>
 
-        <span>配置</span>
+        <span onClick={()=>{
+          window.Main.exec('code /Users/edram/xhs/data')
+        }}>配置</span>
 
         <span
           onClick={() => {
