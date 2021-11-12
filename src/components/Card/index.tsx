@@ -110,9 +110,13 @@ export function Card(props: CardProps) {
           {slIsRunning ? '停止收录' : '启动收录'}
         </span>
 
-        <span onClick={()=>{
-          window.Main.exec('code /Users/edram/xhs/data')
-        }}>配置</span>
+        <span
+          onClick={() => {
+            window.Main.exec('/usr/local/bin/code /Users/edram/xhs/data')
+          }}
+        >
+          配置
+        </span>
 
         <span
           onClick={() => {
