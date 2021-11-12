@@ -18,7 +18,7 @@ const cmd: Cmd = {
       return xyjCmd
     }
     console.log(app.getAppPath())
-    xyjCmd = spawn('mitmweb', ["-s /Users/edram/xhs/xyj.py", "--no-web-open-browser"])
+    xyjCmd = spawn('/Library/Frameworks/Python.framework/Versions/3.10/bin/mitmweb', ["-s /Users/edram/xhs/xyj.py", "--no-web-open-browser"])
     xyjCmd.stdout.setEncoding('utf8')
     xyjCmd.on('exit', () => {
       console.log('xyj cmd exited')

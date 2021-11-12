@@ -18,7 +18,7 @@ const cmd: Cmd = {
       return slCmd
     }
     console.log(app.getAppPath())
-    slCmd = spawn('mitmweb', ["-s /Users/edram/xhs/sl.py", "--no-web-open-browser"])
+    slCmd = spawn('/Library/Frameworks/Python.framework/Versions/3.10/bin/mitmweb', ["-s /Users/edram/xhs/sl.py", "--no-web-open-browser"])
     slCmd.stdout.setEncoding('utf8')
     slCmd.on('exit', () => {
       console.log('sl cmd exited')
