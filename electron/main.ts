@@ -28,7 +28,6 @@ function createWindow() {
 
   mb.on('ready', () => {
     console.log('Menubar app is ready.')
-    mb.window?.webContents.openDevTools()
   })
 }
 
